@@ -72,16 +72,17 @@ body {
 
 /* Header */
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom: none;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(7, 72, 74, 0.1);
   z-index: 100;
   padding: 0 150px;
+  transition: all 0.3s ease;
 }
 
 .nav {
@@ -377,6 +378,7 @@ body {
 }
 
 .section-title {
+  font-family: 'Playfair Display', serif;
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 700;
   margin: 0 0 16px;
@@ -503,6 +505,37 @@ body {
   font-size: 16px;
 }
 
+/* Campos de texto do formulário (contato) */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="url"],
+.form-group input[type="search"],
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(7,72,74,0.2);
+  border-radius: 8px;
+  color: #07484A;
+  font-size: 16px;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #6c8a87;
+  opacity: 0.9;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #5D8C87;
+  box-shadow: 0 0 0 3px rgba(93,140,135,0.15);
+}
+
 .range-labels {
   display: flex;
   justify-content: space-between;
@@ -583,6 +616,11 @@ body {
   list-style: none;
   padding: 0;
   margin: 0 0 32px;
+}
+
+/* Lista de contato alinhada à esquerda */
+.contact-list{
+  text-align: left;
 }
 
 .recommendations li {
@@ -676,7 +714,7 @@ body {
   .about-title{font-size:36px}
   .about-subtitle{font-size:16px}
   .hero-stats{gap:20px}
-  .hero-visual{height:300px}
+  .hero-visual{height:auto}
   .floating-card{padding:16px}
   .feature-grid{grid-template-columns:1fr;gap:24px}
   .feature-item{padding:32px}
@@ -684,6 +722,10 @@ body {
   .example-content{grid-template-columns:1fr;gap:40px}
   .example-text h3{font-size:24px}
   .example-text p{font-size:16px}
+  /* Tornar os cards flutuantes responsivos: grid em vez de posição absoluta */
+  .hero-visual{display:grid;grid-template-columns:repeat(2, minmax(140px, 1fr));gap:16px;justify-items:center}
+  .floating-card{position:static;animation:none;transform:none;width:100%;max-width:180px}
+  .card-1,.card-2,.card-3,.card-4,.card-5{top:auto;right:auto;bottom:auto;left:auto}
 }
 
 /* Benefits Section */
@@ -696,11 +738,16 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 32px;
+  align-items: stretch;
 }
 
 .benefit-item {
   text-align: center;
   padding: 32px 24px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  row-gap: 8px;
+  height: 100%;
 }
 
 .benefit-number {
@@ -917,10 +964,51 @@ body {
     grid-template-columns: 1fr;
   }
   
+  /* Contato responsivo */
+  .calc-grid[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  
+  .calc-form[style*="border-radius: 20px 0 0 20px"] {
+    border-radius: 20px !important;
+  }
+  
+  .calc-form[style*="border-radius: 0 20px 20px 0"] {
+    border-radius: 20px !important;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
     gap: 32px;
     text-align: center;
+  }
+  
+  /* Quem Somos responsivo */
+  .quem-somos-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .quem-somos-card {
+    padding: 24px !important;
+  }
+  
+  .quem-somos-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .quem-somos-avatar span {
+    font-size: 32px !important;
+  }
+  
+  .quem-somos-title {
+    font-size: 28px !important;
+  }
+  
+  .quem-somos-subtitle {
+    font-size: 20px !important;
   }
 }
 
@@ -946,4 +1034,7 @@ body {
     padding: 14px 24px;
     font-size: 14px;
   }
+  /* Em telas muito pequenas, empilhar os cards */
+  .hero-visual{grid-template-columns:1fr}
+  .floating-card{max-width:100%}
 }
